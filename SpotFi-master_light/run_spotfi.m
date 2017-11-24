@@ -3,19 +3,24 @@
 %tof_packet_data:每个数据包的tof，即从每个数据包的music频谱得到的波峰对应的tof
 %output_top_aoaos:前5个最有可能是直达路径的AOA
 function [Pmusics, eigenvalue] = run_spotfi(filepath)
+	%% configuration
     antenna_distance = 0.0261;  % 天线距离
     frequency = 5.745 * 10^9;  % 频率
-    sub_freq_delta = (40 * 10^6) /30;  % 子载波间隔
+    sub_freq_delta = 4*0.3125*10^6;  % 子载波间隔
 	
-    csi_trace = readfile(filepath);
+	theta = -90:1:90;
+	tau = (-100 * 10^-9):(1.0 * 10^-9):(100 * 10^-9);
+	% tau = 0:(1.0 * 10^-9):(100 * 10^-9);
+    
+	csi_trace = readfile(filepath);
     num_packets = floor(length(csi_trace)/1);
 	
     sampled_csi_trace = csi_sampling(csi_trace, num_packets, 1, length(csi_trace));
+
+    [Pmusics, eigenvalue] = spotfi(sampled_csi_trace,frequency, sub_freq_delta, antenna_distance, theta, tau);
 	
-    [Pmusics, eigenvalue] = spotfi(sampled_csi_trace,frequency, sub_freq_delta, antenna_distance);
-	
-	
-	plot_result(Pmusics);	
+	num_packets = 10;
+	plot_result(Pmusics, theta, tau, num_packets);
 end
 
 %为什么进行采样？

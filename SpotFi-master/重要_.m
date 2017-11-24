@@ -17,12 +17,13 @@ function Pmusic = music_spectrum(theta,tau,frequency, sub_freq_delta, antenna_di
 	% V1
     PP = reshape(PP, length(tau), length(theta));
     Pmusic = 1./abs(PP');
-    Pmusic = 10*log10(Pmusic);
+	% 矩阵mx = base_element' * tmp; base_element要转置
+	
 	%{
 	v2
 	PP = reshape(PP, length(theta), length(tau));
     Pmusic = 1./abs(PP);
-    Pmusic = 10*log10(Pmusic);
+	% 矩阵mx = base_element * tmp; base_element 不需要转置
 	%}
 end
 

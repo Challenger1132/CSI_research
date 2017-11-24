@@ -11,13 +11,16 @@ function Pmusic = music_spectrum_light(theta,tau,frequency, sub_freq_delta, ante
 		end
 	end
 	% 得到伪谱矩阵Pmusic
-	for jj = 1:size(Pmusic, 2)
+	% 没有必要这样再求一个log，再求绝对值，log之后可能为负值，abs之后就为正，造成图像反转
+	%{
+	for ii = 1:size(Pmusic, 1)
 		% AoA loop
-		for ii = 1:size(Pmusic, 1)
-			Pmusic(ii, jj) = 10 * log10(Pmusic(ii, jj));% / max(Pmusic(:, jj))); 
-			Pmusic(ii, jj) = abs(Pmusic(ii, jj));
+		for jj = 1:size(Pmusic, 2)
+			Pmusic(ii, jj) = 10 * log10(Pmusic(ii, jj));
+			%Pmusic(ii, jj) = abs(Pmusic(ii, jj));
 		end
 	end
+	%}
 end
 
 function time_phase = omega_tof_phase(tau, sub_freq_delta)

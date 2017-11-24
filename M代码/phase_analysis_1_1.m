@@ -21,11 +21,8 @@ index = 10;
 csi_matrix = csis{index}; % 30*3
 csi_matrix1 = csis{index+1}; % 30*3
 flag1 = 0;
-[mcsi_matrix, mcsiphase00] = linear_transform_qh(csi_matrix'); % input 3*30  
-[mcsi_matrix1, mcsiphase11] = linear_transform_qh(csi_matrix1'); % input 3*30 linear_transform
-% [mcsi_matrix, mcsiphase00] = linear_transform_monalisa(csi_matrix'); % input 3*30
-% [mcsi_matrix1, mcsiphase11] = linear_transform_monalisa(csi_matrix1'); % input
-% 3*30 linear_transform_monalisa failure....
+[mcsi_matrix, mcsiphase00] = linear_transform_1(csi_matrix'); % input 3*30
+[mcsi_matrix1, mcsiphase11] = linear_transform_1(csi_matrix1'); % input 3*30
 %% plot origin CSI phase
 if flag1
     figure('Name', 'origin CSI phase');

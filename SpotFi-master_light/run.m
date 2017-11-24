@@ -1,4 +1,4 @@
-filepath = '4.0-45-3.dat';
+filepath = '3.0-75-4.dat';
 [Pmusics, eigenvalue] = run_spotfi(filepath);	
 	
 	pathIndex1 = eigenvalue_analysis2(eigenvalue);

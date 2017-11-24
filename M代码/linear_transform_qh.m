@@ -1,4 +1,6 @@
-function [mcsi_matrix, mcsiphase] = linear_transform(csi_matrix)  %输入是3*30的CSI数据
+function [mcsi_matrix, mcsiphase] = linear_transform_qh(csi_matrix)  %输入是3*30的CSI数据
+% 根据清华团队提出的线性变换的算法来实现的
+% PADS: Passive Detection of Moving Targets with Dynamic Speed using PHY Layer Information
     R = abs(csi_matrix);
     csiphase = angle(csi_matrix);
     unwrap_csi = unwrap(csiphase, pi, 2);
@@ -17,12 +19,5 @@ function [mcsi_matrix, mcsiphase] = linear_transform(csi_matrix)  %输入是3*30的C
     mant3 = ant3 - a3*k - b3;
     mcsiphase = [mant1; mant2; mant3];
     mcsi_matrix = R.*exp(1i*mcsiphase);
-    %mcsi_matrix = R.*exp(-1i*mcsiphase); % 不一样
-    
-    %{
-    figure('Name', 'phase phase'); %
-    subplot(211); plot(mcsiphase'); % 相位矩阵mcsiphase直接绘制图像
-    phase_again = angle(mcsi_matrix'); % 用相位矩阵mcsiphase构造CSI矩阵，然后再求相位矩阵phase_agein
-    subplot(212); plot(phase_again);
-    %}
+    %mcsi_matrix = R.*exp(1i*mcsiphase); % 不一样
 end

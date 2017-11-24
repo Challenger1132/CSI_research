@@ -5,7 +5,7 @@ function [Pmusic] = API_CSI_MUSIC_Visualize(Xt,...
 if strcmp(option,'non-smoothing')
     Rxx = Xt*Xt'/samples; % 90*90
 elseif strcmp(option,'smoothing')
-    Rxx = zeros(size(Xt,1)); % Xt维度是 30x32x1025 Rxx的维度是
+    Rxx = zeros(size(Xt,1)); % Xt维度是 30x32x1025
     for isamples = 1:samples
         Xt_squeeze = squeeze(Xt(:,:,isamples)); % 30*32 取出第isamples个数据包(切片)
         Rxx = Rxx + Xt_squeeze*Xt_squeeze'; % 30*30

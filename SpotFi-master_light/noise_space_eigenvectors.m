@@ -1,7 +1,7 @@
 function [eigenvectors, eigenvalue] = noise_space_eigenvectors(x)
 	% x = smoothed_sanitized_csi 30*32
 
-	%{
+	%
     R = x * x';  % 原始方式先平滑，再求协方差矩阵
 	% R = x;  % 先求协方差矩阵，平滑，最后直接处理矩阵
     [eigenvectors, eigenvalue_matrix] = eig(R); %R M*M
@@ -41,10 +41,10 @@ function [eigenvectors, eigenvalue] = noise_space_eigenvectors(x)
     % Estimate noise subspace
     column_indices = 1:(size(eigenvalue_matrix, 1) - num_computed_paths);
     eigenvectors = eigenvectors(:, column_indices);  % 取出噪声子空间
-	
 	%}
 	
 	
+	%{
 	R = x * x';  % 原始方式先平滑，再求协方差矩阵
     [eigenvectors, eigenvalue_matrix] = eig(R); %R M*M
     % Find max eigenvalue for normalization
@@ -52,4 +52,5 @@ function [eigenvectors, eigenvalue] = noise_space_eigenvectors(x)
 	[eigenvalue, index] = sort(eigenvalue, 'descend');
 	eigenvectors = eigenvectors(:, index);
 	eigenvectors = eigenvectors(:, 5:size(R, 2));
+	%}
 end
