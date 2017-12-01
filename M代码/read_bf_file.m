@@ -53,6 +53,7 @@ while cur < (len - 3)
         cur = cur + field_len - 1;
         if (length(bytes) ~= field_len-1)
             fclose(f);
+            ret = ret(1:count);
             return;
         end
     else % skip all other info

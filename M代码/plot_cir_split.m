@@ -1,7 +1,7 @@
 %% get data from packages
 clc;clear all;
 sub_freq_delta = (40 * 10^6) /30;  % ×ÓÔØ²¨¼ä¸ô
-csi_trace = read_bf_file('3.5-30-5.dat');
+csi_trace = read_bf_file('dopler_lr_1ms_closer_6.dat');
 num_package = length(csi_trace);
 cirs = cell(num_package, 1);
 csis = cell(num_package, 1);

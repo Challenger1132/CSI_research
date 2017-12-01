@@ -1,6 +1,6 @@
 %% 单个图像绘制出来和phase_analysis_1.m一样
 clc;clear all;
-csi_trace = read_bf_file('1.5-45-3.dat');
+csi_trace = read_bf_file('3.0-30-3.dat');
 num_package = length(csi_trace);
 fprintf('mumber_package = %d\n', num_package);
 cirs = cell(num_package, 1);
@@ -21,8 +21,8 @@ index = 10;
 csi_matrix = csis{index}; % 30*3
 csi_matrix1 = csis{index+1}; % 30*3
 flag1 = 0; flag2 = 1; flag3 = 1; flag4 = 1; flag5 = 1;
-mcsi_matrix = linear_transform(csi_matrix'); % input 3*30
-mcsi_matrix1 = linear_transform(csi_matrix1'); % input 3*30
+mcsi_matrix = linear_transform_qh(csi_matrix'); % input 3*30
+mcsi_matrix1 = linear_transform_qh(csi_matrix1'); % input 3*30
 %% plot origin CSI phase
 if flag1
     figure('Name', 'origin CSI phase');

@@ -1,4 +1,6 @@
-%%
+%% 
+% 原始相位展开之后是线性的，且斜率是负值
+% 进行线性拟合，得到的相位是拟合的直线
 clc;clear all;
 csi_trace1 = read_bf_file('3.0-30-3.dat');
  csi_trace = read_bf_file('4.0-15r-5.dat');
@@ -39,14 +41,4 @@ csi_matrix_fit = [fy1, fy2, fy3];
 figure('Name', 'fit CSI phase');
 plot(csi_matrix_fit);
 grid on; title('fit CSI phase');
-%%
-%{
-delta_f = 2*pi*t
-t = d*sinθ / c
-%}
-delta_phi = p(1, 2) - p(3, 2);
-delta_phi = delta_phi / pi;
-delta_phi_mod = mod(delta_phi, pi);
-theta = asin(delta_phi_mod / pi);
-theta1 = rad2deg(theta);
 

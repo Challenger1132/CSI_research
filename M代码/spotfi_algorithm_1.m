@@ -1,4 +1,6 @@
-%%
+%{
+这种拟合方式没有消除β值
+%}
 function [csi_matrix, phase_matrix] = spotfi_algorithm_1(csi_matrix, delta_f)
     R = abs(csi_matrix); % 未经线性拟合的数据  3 * 30
     phase_matrix = unwrap(angle(csi_matrix), pi, 2);
@@ -21,6 +23,7 @@ function [csi_matrix, phase_matrix] = spotfi_algorithm_1(csi_matrix, delta_f)
             phase_matrix(m, n) = packet_one_phase_matrix(m, n) - (n - 1) * tau;
         end
     end
+%     phase_matrix = unwrap(phase_matrix, pi, 2);
     csi_matrix = R.*exp(1i * phase_matrix);
 %% 精简改写版本
 %     R = abs(csi_matrix); % 未经线性拟合的数据  3 * 30

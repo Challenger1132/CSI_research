@@ -37,7 +37,7 @@ function ret = get_scaled_csi(csi_st)  %csi_entry
 
     % Total noise and error power
     total_noise_pwr = thermal_noise_pwr + quant_error_pwr;
-
+	% 总的噪声等于热噪声加上量化噪声
     % Ret now has units of sqrt(SNR) just like H in textbooks
     ret = csi * sqrt(scale / total_noise_pwr);
     if csi_st.Ntx == 2

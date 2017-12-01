@@ -11,7 +11,7 @@ function [mcsi_matrix, mcsiphase] = linear_fit_spotifi(csi_matrix, delta_f)  %输
     ant2 = unwrap_csi(2, :);
     ant3 = unwrap_csi(3, :);
     ptemp = 2*pi*delta_f;
-    x1 = ptemp*linspace(0, 29, 30);  % 构造的输入数据x 
+    x1 = ptemp*linspace(0, 29, 30);  % 构造的输入数据x1、x2、x3
     x2 = ptemp*linspace(0, 29, 30);
     x3 = ptemp*linspace(0, 29, 30);
     y1 = polyfit(x1, ant1, 1);
@@ -24,5 +24,5 @@ function [mcsi_matrix, mcsiphase] = linear_fit_spotifi(csi_matrix, delta_f)  %输
     p2 = ant2 - x2*d2;
     p3 = ant3 - x3*d3;
     mcsiphase = [p1; p2; p3];
-    mcsi_matrix = R.*exp(-1i*mcsiphase);
+    mcsi_matrix = R.*exp(1i*mcsiphase);
 end

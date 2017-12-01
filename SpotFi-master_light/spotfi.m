@@ -7,7 +7,7 @@ function [Pmusics, eigenvalue] = spotfi(csi_trace,...
 	end
     
     num_packets = length(csi_trace);
-	num_packets = 20; % 为了加快执行的速度，而选取20个packages 
+	num_packets = 10; % 为了加快执行的速度，而选取20个packages 
 
 	Pmusics = cell(num_packets, 1);
 	eigenvalue = cell(num_packets, 1);
@@ -17,7 +17,7 @@ function [Pmusics, eigenvalue] = spotfi(csi_trace,...
         csi = get_scaled_csi(csi_entry);
         csi = csi(1, :, :); % Remove the single element dimension
         csi = squeeze(csi); % 3*30
-		csi = csi([1 3 2], :);  % 将天线2和天线3数据进行置换
+		csi = csi([1 2 3], :);  % 将天线2和天线3数据进行置换
 
         
 		% Sanitize ToFs with Algorithm 1

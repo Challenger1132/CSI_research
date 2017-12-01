@@ -32,14 +32,6 @@ delta_f = (40 * 10^6) / 30;
 % [mcsi_matrix1, mcsiphase11] = linear_fit_spotifi(csi_matrix1.', delta_f); % input 3*30 linear_fit_spotifi
 % [mcsi_matrix, mcsiphase00]  = linear_fit(csi_matrix.');
 % [mcsi_matrix1, mcsiphase11]  = linear_fit(csi_matrix1.');
-%% plot origin CSI phase
-if flag1
-    figure('Name', 'origin CSI phase');
-    origin_csi_phase = angle(csi_matrix);
-    plot(origin_csi_phase);
-    grid on;
-    title('origin CSI phase');
-end
 %% plot CSI phase
 figure('Name', 'CSI phase with linear transformation');
 unwrapd_csi = unwrap(angle(csi_matrix), pi, 1);

@@ -12,8 +12,10 @@ function run(data_file)
     csi_trace = read_bf_file(data_file);
 
     num_packets = length(csi_trace);
-    fprintf('num_packets: %d\n', num_packets)
+    fprintf('num_packets: %d\n', num_packets);
     sampled_csi_trace = csi_sampling(csi_trace, num_packets, ...
             1, length(csi_trace));
+	fprintf('size sampled_csi_trace:\n');
+	size(sampled_csi_trace)
     spotfi(sampled_csi_trace, frequency, sub_freq_delta, antenna_distance);
 end

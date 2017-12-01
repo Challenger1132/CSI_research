@@ -32,9 +32,10 @@ for ind = 1:numberpackages
     csi = csis{index}; % 30*3
     csi_matrix = linear_transform_qh(csi.'); % 3*30
     
-     %csi_matrix = linear_fit_spotifi(csi.', delta_f); % 3*30
+    % csi_matrix = linear_fit_spotifi(csi.', delta_f); % 3*30
     % csi_matrix = linear_transform_monalisa(csi.'); % 3*30
-    %csi_matrix = spotfi_algorithm_1(csi.', delta_f); % 3*30
+    % csi_matrix = spotfi_algorithm_1(csi.', delta_f); % 3*30
+    % csi_matrix = spotfi_algorithm_2(csi.'); % 3*30
     csi_temp = reshape(csi_matrix.', 90, 1);
     csi_data_linear_transform(:, ind) = csi_temp;
 end

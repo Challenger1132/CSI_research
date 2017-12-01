@@ -21,6 +21,7 @@ function spotfi(csi_trace, frequency, sub_freq_delta, antenna_distance, data_nam
 		smoothed_sanitized_csi = smooth_csi(sanitized_csi);
 		Rxx = Rxx + smoothed_sanitized_csi;
 	end
+	% 只执行了一次
 	Rxx = Rxx / num_packets;
     [aoa_packet_data{1}, tof_packet_data{1}] = aoa_tof_music(...
             Rxx, antenna_distance, frequency, sub_freq_delta, data_name);
@@ -64,69 +65,7 @@ function [estimated_aoas, estimated_tofs] = aoa_tof_music(x, ...
     
     column_indices = 1:(size(eigenvalue_matrix, 1) - num_computed_paths);
     eigenvectors = eigenvectors(:, column_indices);
-	
-	
-	%{
-	[eigenvectors, eigenvalue_matrix] = eig(R);
-	eigenvalues = diag(eigenvalue_matrix);
-	befor_sort = eigenvalues;
-	max_eigenvalue = max(eigenvalues);
-	eigenvalues = eigenvalues / max_eigenvalue;  % normalized
-	[sorted_eigenvalues, eigenvalues_index] = sort(eigenvalues, 'descend');
-	eigenvectors = eigenvectors(:, eigenvalues_index);
-	
-	decrease_ratios = zeros(length(eigenvalues) - 1, 1);
-	for ii = 1: length(eigenvalues) - 1
-		decrease_ratios(ii) = sorted_eigenvalues(ii) / sorted_eigenvalues(ii + 1);
-	end
-	[max_decrease_ratio, max_decrease_ratio_index] = max(decrease_ratios);
-	max_decrease_ratio_index = max_decrease_ratio_index + 1;
-	num_computed_paths = length(eigenvalues) - max_decrease_ratio_index;
-	noise_space_index = max_decrease_ratio_index : length(eigenvalues);
-	eigenvectors = eigenvectors(:, noise_space_index);
-	
-	figure;
-	subplot(221); plot(befor_sort);title('bofore sort');
-	subplot(222); plot(sorted_eigenvalues);title('after sort');
-	subplot(223); plot(decrease_ratios);title('decrease_ratios');
-	subplot(224); plot(sorted_eigenvalues);title('after sort');hold on;
-	plot(max_decrease_ratio_index, max(eigenvalues), 'o', 'MarkerSize', 12);
-	%}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	%{
-	[eigenvectors, eigenvalue_matrix] = eig(R);
-	eigenvalue_matrix = diag(eigenvalue_matrix);
-	max_eigenvalue = max(eigenvalue_matrix);
-	eigenvalue_matrix = eigenvalue_matrix / max_eigenvalue;
-    
-    start_index = size(eigenvalue_matrix, 1) - 2;
-    end_index = start_index - 10;
-    decrease_ratios = zeros(start_index - end_index + 1, 1);
-    k = 1;
-    for ii = start_index:-1:end_index
-        temp_decrease_ratio = eigenvalue_matrix(ii + 1, ii + 1) / eigenvalue_matrix(ii, ii);
-        decrease_ratios(k, 1) = temp_decrease_ratio;
-        k = k + 1;
-    end
-    [max_decrease_ratio, max_decrease_ratio_index] = max(decrease_ratios);
 
-    index_in_eigenvalues = size(eigenvalue_matrix, 1) - max_decrease_ratio_index;
-    num_computed_paths = size(eigenvalue_matrix, 1) - index_in_eigenvalues + 1;
-    
-    % Estimate noise subspace
-    column_indices = 1:(size(eigenvalue_matrix, 1) - num_computed_paths);
-    eigenvectors = eigenvectors(:, column_indices);
-	
-	%}
-	
 	
     theta = -90:1:90; 
     tau = 0:(1.0 * 10^-9):(50 * 10^-9);

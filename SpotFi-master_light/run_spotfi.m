@@ -19,7 +19,7 @@ function [Pmusics, eigenvalue] = run_spotfi(filepath)
 
     [Pmusics, eigenvalue] = spotfi(sampled_csi_trace,frequency, sub_freq_delta, antenna_distance, theta, tau);
 	
-	num_packets = 10;
+	num_packets = 5;
 	plot_result(Pmusics, theta, tau, num_packets);
 end
 
