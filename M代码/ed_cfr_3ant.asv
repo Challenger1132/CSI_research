@@ -1,0 +1,45 @@
+%{
+
+%}
+filePath = 'F:\netlink\training_distance\';
+dirInfo = dir(fullfile(filePath, '*.dat'));
+fileList = {dirInfo.name}.'; % fileList是一个cell数组
+npkgs = 100;
+EnCfr = zeros(3, npkgs, length(fileList));
+AGC = zeros(npkgs, length(fileList));
+%%
+for indFile = 1:length(fileList)  % for 每一个 .dat 文件
+    mainComp = zeros(3, npkgs);
+    csi_trace = read_bf_file([filePath, fileList{indFile}]);
+    agc = zeros(npkgs, 1);
+    for indPkg = 1:npkgs
+        csi_entry = csi_trace{indPkg};
+        %% AGC
+        agc(indPkg) = csi_entry.agc;
+        %% scaled csi
+        csi = get_scaled_csi(csi_entry);
+        csi = squeeze(csi(1, :, :)); % 3*30
+        Ecsi = mean(abs(csi), 2);
+        mainComp(:, indPkg) = Ecsi;
+    end
+    AGC(:, indFile) = agc;
+    EnCfr(:, :, indFile) = mainComp;
+end
+%%
+PLOT_CFR = 1;
+xdata = [1:0.5:4.5];
+if PLOT_CFR
+    figure('Name', 'ant 1', 'NumberTitle', 'off');
+    boxplot(cfrs, xdata); grid on; title('CSI幅值求和');
+        figure('Name', 'CSI幅值求和', 'NumberTitle', 'off');
+    boxplot(cfrs, xdata); grid on; title('CSI幅值求和');
+        figure('Name', 'CSI幅值求和', 'NumberTitle', 'off');
+    boxplot(cfrs, xdata); grid on; title('CSI幅值求和');
+end
+
+
+
+
+
+    
+        

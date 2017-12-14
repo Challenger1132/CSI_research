@@ -1,9 +1,10 @@
 %{
-分析几种线性拟合方式下相位与CIR的情况
+分析几种线性拟合方式下
+相位与CIR的情况
 %}
 clc; clear all;
 delta_f = (40 * 10^6) /30;  % 子载波间隔
-csi_trace = read_bf_file('dopler_lr_10ms_closer2.dat');
+csi_trace = read_bf_file('3.5-30-5.dat');
 num_package = length(csi_trace);
 csis = cell(num_package, 1);
 cirs = cell(num_package, 1);

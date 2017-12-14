@@ -14,7 +14,7 @@ function ret = get_scaled_csi(csi_st)  %csi_entry
 	%   rssi_pwr是功率的形式 (csi_pwr / 30) 是平均信号能量
     scale = rssi_pwr / (csi_pwr / 30);
 
-    % Thermal noise might be undefined if the trace was  
+    % Thermal noise might be undefined if the trace was
     % captured in monitor mode.
     % ... If so, set it to -92
     if (csi_st.noise == -127)

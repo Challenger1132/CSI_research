@@ -1,7 +1,7 @@
 %% read file
 clc;clear all;
 sub_freq_delta = (40 * 10^6) /30;  % 子载波间隔
-csi_trace = read_bf_file('3.5-30-5.dat');
+csi_trace = read_bf_file('4.0-30-3.dat');
 num_package = length(csi_trace);
 cirs = cell(num_package, 1);
 csis = cell(num_package, 1);
@@ -24,20 +24,21 @@ end
 ONE_PACKAGE = 1;
 
 if ONE_PACKAGE
+    threshold = 0.25; % 进行时域滤除的阈值
     index = 10;
     csi = csis{index};
     cir = ifft(csi);
     abscirdata = abs(cir);
-    max_cir = max(abscirdata, [], 1); % cir_data每一行的最大值
+    max_cir = max(abscirdata, [], 1); % abscirdata每一行的最大值
     cir_f = zeros(30, 3); % 30*3
-    for i = 1 : size(cir, 2) % % 如果cir值小于峰值的0.5倍，则将对应的cir剔除掉
+    for i = 1 : size(cir, 2) % % 如果cir值小于峰值的threshold倍，则将对应的cir剔除掉
         for j = 1: size(cir, 1)
-            if abscirdata(j, i) >= max_cir(i)*0.25
+            if abscirdata(j, i) >= max_cir(i)*threshold
                 cir_f(j, i) = cir(j, i);
             end
         end
     end
-    csi_f = fft(cir_f);
+    csi_f = fft(cir_f); % 重新变换到频域
     figure('Name', 'one package......');
     subplot(221); plot(db(abs(csi)));
     subplot(222); bar(abs(cir));

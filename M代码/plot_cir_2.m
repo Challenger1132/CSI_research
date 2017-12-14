@@ -27,13 +27,13 @@ for ind = 1: num_package
     origincsi = csis{ind};
     % [mcsi, ~] = linear_transform_qh(origincsi.'); % 3*30
     [mcsi, ~] = spotfi_algorithm_1(origincsi.'); % 3*30
-    compensate_time = 1e-07;
+    compensate_time = 1.2e-07;
     [mcsi1] = linear_compensate_200ns(origincsi.', compensate_time); % 3*30
     mcsis{ind} = mcsi;
     compensate_csis{ind} = mcsi1;
 end
-FILTER_CSI = 1;
-PLOT_LINEARFIT_CSI = 1;
+FILTER_CSI = 0;
+PLOT_LINEARFIT_CSI = 0;
 PLOT_COMPENSATE_PHASE = 1;
 index = 10;
 
@@ -45,14 +45,12 @@ if PLOT_COMPENSATE_PHASE
     origin_phase = unwrap(angle(origincsi), pi, 1);
     compensate_phase = unwrap(angle(compensate_csi), pi, 1);
     figure('Name', 'Compensate CSI phase'); grid on;    
-    subplot(231); plot(db(abs(origincsi)));  title('original CSI Amplitude');
-    subplot(234); plot(db(abs(compensate_csi)));  title('compensate CSI Amplitude');
+    subplot(231); plot(db(abs(origincsi)));     grid on;    title('original CSI Amplitude');
+    subplot(234); plot(db(abs(compensate_csi)));	grid on;    title('compensate CSI Amplitude');
     subplot(232); plot(origin_phase);   grid on;    title('original CSI phase');
     subplot(235); plot(compensate_phase);   grid on;   title('compensate CSI phase');
     subplot(233); bar(origincir);   grid on;    title('original CIR');
     subplot(236); bar(compensate_cir);   grid on;    title('compensate with 200ns CIR');
-%     fprintf('energy of original CSI %f \n', sum(sum(origincir)));
-%     fprintf('energy of compensated CSI %f \n', sum(sum(mcir)));
 end
     
 if PLOT_LINEARFIT_CSI
